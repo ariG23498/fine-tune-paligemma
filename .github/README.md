@@ -1,36 +1,23 @@
 # Fine Tuning PaliGemma
 
-## What is SigLIP
+PaliGemma (PG) is a family of Vision Language Models from Google. It uses
+SigLIP as the vision encoder, and the Gemma family of models as it language counterpart.
 
-We (/w Ritwik Raha) have covered SigLIP in depth in our blog [Choosing Between SigLIP and CLIP for Language Image Pretraining](https://blog.ritwikraha.dev/choosing-between-siglip-and-clip-for-language-image-pretraining).
+> [!Note]
+I and Ritwik Raha have covered SigLIP in depth in our blog
+[Choosing Between SigLIP and CLIP for Language Image Pretraining](https://blog.ritwikraha.dev/choosing-between-siglip-and-clip-for-language-image-pretraining) if you wanted to read
+about it.
 
-## What is PaliGemma?
+PaliGemma is great for fine tuning purposes. In this repository we collect some
+examples of fine tuning the PG family of models.
 
-[PaliGemma](https://ai.google.dev/gemma/docs/paligemma) is a new family of
-vision-language models from Google. These models can process both images and
-text to produce text outputs.
+Models hosted on Hugging Face Hub:
 
-Google has released three types of PaliGemma models:
-1. Pretrained (pt) models: Trained on large datasets without task-specific tuning.
-2. Mix models: A combination of pre-trained and fine-tuned elements.
-3. Fine-tuned (ft) models: Optimized for specific tasks with additional training.
+1. [PaliGemma](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda)
+2. [PaliGemma 2](https://huggingface.co/collections/google/paligemma-2-release-67500e1e1dbfdd4dee27ba48)
 
-Each type comes in different resolutions and multiple precisions for
-convenience. All models are available on the
-[Hugging Face Hub](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda)
-with model cards, licenses, and integration with transformers.
 
-## Fine-Tuning Methods
-
-1. [JAX Fine-Tuning Script](https://colab.research.google.com/github/google-research/big_vision/blob/main/big_vision/configs/proj/paligemma/finetune_paligemma.ipynb)
-2. [Fine-tuning using HuggingFace transformers](https://huggingface.co/blog/paligemma#using-transformers-1)
-3. Fine-tuning using Vanilla Pytorch scripts (shown here)
-  a. Fine tune with an Image Captioning Dataset (vanilla_ft.py)
-  b. Fine tune with an Object Detection Dataset (object_detection_ft.py)
-
-## Results
-
-### Image Captioning
+## Image Captioning
 
 In the script provided we have used the [`tuxemon`](https://huggingface.co/datasets/diffusers/tuxemon)
 dataset, from the diffusers team. The dataset comprises of images of tuxemons (a spin off of pokemons)
@@ -41,7 +28,7 @@ and their captions.
 | ![image](./assets/image_caption/before.png) | ![image](./assets/image_caption/after.png) |
 
 
-### Object Detection
+## Object Detection
 
 While I could not find a document that provides pointers to train the model
 on a detection dataset, diving in the official
@@ -59,12 +46,14 @@ and run the model.
 |---|---|
 | ![image](./assets/object_detection/before.png) | ![image](./assets/object_detection/after.png) |
 
-## Further Reading
-If you want to read more about PaliGemma and SigLip we have written two blogposts on the topic:
-- [Understanding PaliGemma](https://blog.ritwikraha.dev/understanding-paligemma-in-50-minutes-or-less)
-- [SigLip vs CLIP](https://blog.ritwikraha.dev/choosing-between-siglip-and-clip-for-language-image-pretraining)
+
+## Count Intersection
+
+Find more information in the [count intersection readme](../count_intersection/README.md).
+
 ## Citation
-If you like our work and would use it please cite us! ^_^
+
+If you like our work and would use it please cite us
 ```
 @misc{github_repository,
   author = {Aritra Roy Gosthipaty, Ritwik Raha}, 
