@@ -58,7 +58,11 @@ def main(
     dataset_folder: str = "dataset",
     dataset_split: str = "train",
     push_to_hub: bool = False,
+    dataset_id: str | None = None,
 ):
+    if push_to_hub and dataset_id is None:
+        raise ValueError("dataset_id cannot be None.")
+
     if not os.path.exists(f"{dataset_folder}/{dataset_split}"):
         os.makedirs(f"{dataset_folder}/{dataset_split}/0/")
         os.makedirs(f"{dataset_folder}/{dataset_split}/1/")
@@ -110,7 +114,7 @@ def main(
     # push to hub
     if push_to_hub:
         ds = load_dataset(dataset_folder)
-        ds.push_to_hub("ariG23498/intersection-dataset")
+        ds.push_to_hub(dataset_id)
 
 
 if __name__ == "__main__":
