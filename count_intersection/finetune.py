@@ -73,7 +73,7 @@ def run_inference(val_dataset, processor, model):
 
 def main(ckpt_id: str = "google/paligemma2-3b-pt-224", dataset_folder: str = "dataset", push_to_hub: bool = False, model_id: str | None = None):
     if push_to_hub and model_id is None:
-        raise ValueError("model_id cannot be none")
+        raise ValueError("`model_id` cannot be `None` when you want to push model to Hub")
 
     # load the dataset and the processor
     print(f"[INFO] Loading {ckpt_id} processor")

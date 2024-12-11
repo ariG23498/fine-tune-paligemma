@@ -61,7 +61,7 @@ def main(
     dataset_id: str | None = None,
 ):
     if push_to_hub and dataset_id is None:
-        raise ValueError("dataset_id cannot be None.")
+        raise ValueError("`dataset_id` cannot be `None` when you want to push the dataset to Hub")
 
     if not os.path.exists(f"{dataset_folder}/{dataset_split}"):
         os.makedirs(f"{dataset_folder}/{dataset_split}/0/")
