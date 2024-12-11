@@ -25,7 +25,7 @@ Hugging Face🤗 model hub page : [PaliGemma 2 Release: Vision-Language Models a
   + For General fine-tuning: `vanilla_ft.py` 
 
 # Results
-We fine-tuned the model on two tasks: Image Captioning and Object detection.
+We fine-tuned the model on two tasks: Image Captioning and Object detection. We also tuned the model on a specific task of "counting intersections" between lines inspired from [Lucas Beyer's blog plot on big_vision](https://lucasb.eyer.be/articles/bv_tuto.html). Check the corresponding code and dataset: [Count Intersection](count_intersection)
 ## Image Captioning
 
 For image captioning task we chose the [`tuxemon`](https://huggingface.co/datasets/diffusers/tuxemon) dataset which contains tuxemons, a spin-off of pokemons and their captions as descriptions.
