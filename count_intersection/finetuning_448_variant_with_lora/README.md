@@ -4,6 +4,8 @@ Finetuning script for the 448 variant of Paligemma2. I used LoRA adapters to fin
 
 The checkpoint can be found here: https://huggingface.co/LuciexJune/Paligemma2_lora
 
+Tensorboard log: can be seen in the `runs` folder.
+
 ## Results:
 
 ![image](https://github.com/user-attachments/assets/ae724e87-ef8a-4d4b-9de2-24687cad328b)
