@@ -39,7 +39,7 @@ python create_intersection_dataset.py \
   - `dataset_folder`: Directory to save the dataset.
   - `dataset_split`: Dataset split (`train` or `validation`).
   - `push_to_hub`: Whether to upload the dataset to the Hugging Face Hub.
-  - `dataset_id`: ID (username + dataset name) used to upload to the Hub. Required if `push_to_hub` is True.
+  - `dataset_id`: ID used to upload dataset to the Hub, e.g. `ariG23498/intersection-dataset`. Required if `push_to_hub` is `True`.
 
 The uploaded dataset is available [here](https://huggingface.co/datasets/ariG23498/intersection-dataset).
 
@@ -53,15 +53,15 @@ Fine-tune the `PaliGemma 2 base` model using:
 ```bash
 python finetune.py \
     --ckpt_id="google/paligemma2-3b-pt-224" \
-    --push_to_hub=true \
+    --push_to_hub=True \
     --model_id="YOUR_HF_USERNAME/count_intersection-ft-paligemma2-3b-pt-224"
 ```
 
 - **Parameters**:
-  - `ckpt-id`: Pre-trained model checkpoint ID.
-  - `dataset_folder`: Directory containing the dataset.
+  - `ckpt-id`: Pre-trained model checkpoint ID. Defaults to `google/paligemma2-3b-pt-224`.
+  - `dataset_folder`: Directory containing the dataset, or dataset ID from Hugging Face. Defaults to `dataset`. 
   - `push_to_hub`: Whether to upload the fine-tuned model to the Hugging Face Hub.
-  - `model_id`: ID (username + model name) used to upload to the Hub. Required if `push_to_hub` is True.
+  - `model_id`: ID used to upload model to the Hub, e.g. `oliveirabruno01/count_intersection-ft-paligemma2-3b-pt-224`. Required if `push_to_hub` is `True`.
 
 ### Example Workflow
 1. You may need to authenticate with `huggingface-cli login` if you haven't already. 

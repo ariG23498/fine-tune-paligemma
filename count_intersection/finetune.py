@@ -1,7 +1,8 @@
 # Example usage:
 # python finetune.py \
 # --ckpt_id="google/paligemma2-3b-pt-224" \
-# --push_to_hub=true \
+# --dataset_folder="dataset" \
+# --push_to_hub=True \
 # --model_id="YOUR_HF_USERNAME/count_intersection-ft-paligemma2-3b-pt-224"
 
 import os

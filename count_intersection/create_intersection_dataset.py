@@ -7,7 +7,8 @@
 # --num_images=100 \
 # --dataset_folder="dataset" \
 # --dataset_split="train" \
-# --push_to_hub=False
+# --push_to_hub=True \
+# --dataset_id="YOUR_HF_USERNAME/intersection-dataset"
 
 from matplotlib import pyplot as plt
 import random
