@@ -1,16 +1,18 @@
 ## Finetune PaliGemma2-448 variant
 
-Finetuning script for the 448 variant of Paligemma2. I used LoRA adapters to fine-tune the entire model without freezing any blocks. 
+Finetuning script for the 448 variant of Paligemma2. I used LoRA adapters to fine-tune the entire model without freezing any blocks. Trained with A100 40GB. 
+HuggingFace Trainer🤗 was used for training the model.
 
 The checkpoint can be found here: https://huggingface.co/LuciexJune/Paligemma2_lora
 
 Tensorboard log: can be seen in the `runs` folder.
 
+Open the notebook in Google Colab: [Colab Notebook](https://colab.research.google.com/drive/1xZRNv03SDcNOUu6R2e8CbENfZ2EAafBU?usp=sharing) 
 ## Results:
 
 ![image](https://github.com/user-attachments/assets/ae724e87-ef8a-4d4b-9de2-24687cad328b)
 
-Seems like to work maybe additional tuning might be needed to improve the performance.
+Seems like to work maybe additional tuning might be needed to improve the performance. (I don't have any compute left ☹️)
 
 Training args:
 ```python
@@ -34,3 +36,4 @@ rgs=TrainingArguments(
             dataloader_pin_memory=False
         )
 ```
+
