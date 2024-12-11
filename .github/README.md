@@ -1,76 +1,65 @@
 # Fine Tuning PaliGemma
 
-## What is SigLIP
-
-We (/w Ritwik Raha) have covered SigLIP in depth in our blog [Choosing Between SigLIP and CLIP for Language Image Pretraining](https://blog.ritwikraha.dev/choosing-between-siglip-and-clip-for-language-image-pretraining).
-
 ## What is PaliGemma?
 
-[PaliGemma](https://ai.google.dev/gemma/docs/paligemma) is a new family of
-vision-language models from Google. These models can process both images and
-text to produce text outputs.
+PaliGemma 2 and PaliGemma are lightweight open vision-language models (VLM) inspired by PaLI-3, and based on open components like the [SigLIP](https://arxiv.org/abs/2303.15343) vision model and the [Gemma language model](https://arxiv.org/abs/2403.08295). PaliGemma takes both images and text as inputs and can answer questions about images with detail and context, meaning that PaliGemma can perform deeper analysis of images and provide useful insights, such as captioning for images and short videos, object detection, and reading text embedded within images.
 
 Google has released three types of PaliGemma models:
 1. Pretrained (pt) models: Trained on large datasets without task-specific tuning.
 2. Mix models: A combination of pre-trained and fine-tuned elements.
-3. Fine-tuned (ft) models: Optimized for specific tasks with additional training.
+3. Fine-tuned (ft) models: Research-oriented models that are fine-tuned on specific research datasets.
 
-Each type comes in different resolutions and multiple precisions for
-convenience. All models are available on the
-[Hugging Face Hub](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda)
-with model cards, licenses, and integration with transformers.
+## Model Access
+PaliGemma 2 is available in 3B, 10B, and 28B parameter sizes which are based on Gemma 2 2B, 9B, and 27B models, respectively. Model variants support different pixel resolutions for image inputs, including 224 x 224, 448 x 448, and 896 x 896 pixels.
+
+All the model variants can be accessed from the HuggingFace page and are already integrated with the Transformers🤗 library. 
+
+Hugging Face🤗 model hub page : [PaliGemma 2 Release: Vision-Language Models available in multiple 3B, 10B and 28B variants.](https://huggingface.co/collections/google/paligemma-2-release-67500e1e1dbfdd4dee27ba48)
 
 ## Fine-Tuning Methods
 
-1. [JAX Fine-Tuning Script](https://colab.research.google.com/github/google-research/big_vision/blob/main/big_vision/configs/proj/paligemma/finetune_paligemma.ipynb)
-2. [Fine-tuning using HuggingFace transformers](https://huggingface.co/blog/paligemma#using-transformers-1)
-3. Fine-tuning using Vanilla Pytorch scripts (shown here)
-  a. Fine tune with an Image Captioning Dataset (vanilla_ft.py)
-  b. Fine tune with an Object Detection Dataset (object_detection_ft.py)
+- Using JAX: [JAX Fine-Tuning Script](https://colab.research.google.com/github/google-research/big_vision/blob/main/big_vision/configs/proj/paligemma/finetune_paligemma.ipynb)
+- Using HuggingFace Transformers: [Fine-tuning with Trainer🤗](https://huggingface.co/blog/paligemma#using-transformers-1)
+- With PyTorch:
+  + For Object detection problems: `object_detection_ft.py`
+  + For General fine-tuning: `vanilla_ft.py` 
 
-## Results
+# Results
+We fine-tuned the model on two tasks: Image Captioning and Object detection.
+## Image Captioning
 
-### Image Captioning
+For image captioning task we chose the [`tuxemon`](https://huggingface.co/datasets/diffusers/tuxemon) dataset which contains tuxemons, a spin-off of pokemons and their captions as descriptions.
+![images](https://github.com/user-attachments/assets/34b88424-704b-42d0-b1da-6a6bfac2b780)
 
-In the script provided we have used the [`tuxemon`](https://huggingface.co/datasets/diffusers/tuxemon)
-dataset, from the diffusers team. The dataset comprises of images of tuxemons (a spin off of pokemons)
-and their captions.
+### Fine Tuning comparison
 
 | Before Fine Tuning | After Fine Tuning |
 |---|---|
 | ![image](./assets/image_caption/before.png) | ![image](./assets/image_caption/after.png) |
 
 
-### Object Detection
+## Object Detection
+For object detection, the dataset has to be preprocessed in a way to be compatible with the model. The [Big vision space](https://huggingface.co/spaces/big-vision/paligemma) gives us some valuable insights on how to do so. So we made a script 
+to format any object detection dataset to the format compatible with PaliGemma. 
 
-While I could not find a document that provides pointers to train the model
-on a detection dataset, diving in the official
-[big vision space](https://huggingface.co/spaces/big-vision/paligemma) made it
-really clear. Taking inspiration from the space, I have create a script to format
-any object detection dataset (here the dataset is based on the coco format)
-to the format PaliGemma is trained on.
+### A note on the data format: 
+The format is to put the prefix and suffix in a specific way. In the prefix, use the keyword `detect` followed by a semicolon-separated list of the object classes you want to detect. For example, `detect {object} ; {object}`. The suffix should contain the detection results, with each object represented by its bounding box and class name. The bounding box is formatted as `<loc{Y1}><loc{X1}><loc{Y2}><loc{X2}>`, where X1, Y1, X2, and Y2 are the normalized coordinates of the top-left and bottom-right corners of the box, respectively.
 
-You can find the dataset creation script here: `create_od_dataset.py`.
+You can find the function to format any object detection dataset to Paligemma format here: `create_od_dataset.py`
 
-After the dataset is created run the fine tuning script `object_detection_ft.py`
-and run the model.
+Fine-tuning script for object detection task:  `object_detection_ft.py`
+
+### Fine-Tuning comparison
 
 | Before Fine Tuning | After Fine Tuning |
 |---|---|
 | ![image](./assets/object_detection/before.png) | ![image](./assets/object_detection/after.png) |
 
-## Further Reading
-If you want to read more about PaliGemma and SigLip we have written two blogposts on the topic:
+## Further Resources
 - [Understanding PaliGemma](https://blog.ritwikraha.dev/understanding-paligemma-in-50-minutes-or-less)
-- [SigLip vs CLIP](https://blog.ritwikraha.dev/choosing-between-siglip-and-clip-for-language-image-pretraining)
-## Citation
-If you like our work and would use it please cite us! ^_^
-```
-@misc{github_repository,
-  author = {Aritra Roy Gosthipaty, Ritwik Raha}, 
-  title = {ft-pali-gemma}, 
-  publisher = {{GitHub}(https://github.com)},
-  howpublished = {\url{https://github.com/ariG23498/ft-pali-gemma/edit/main/README.md}},
-  year = {2024}  
-}
-```
+- [Choosing Between SigLIP and CLIP for Language Image Pretraining](https://blog.ritwikraha.dev/choosing-between-siglip-and-clip-for-language-image-pretraining)
+- [PaliGemma prompt and system instructions](https://ai.google.dev/gemma/docs/paligemma/prompt-system-instructions)
+
+## Citations 
+
+1. Steiner, A., Pinto, A. S., Tschannen, M., Keysers, D., Wang, X., Bitton, Y., Gritsenko, A., Minderer, M., Sherbondy, A., Long, S., Qin, S., Ingle, R., Bugliarello, E., Kazemzadeh, S., Mesnard, T., Alabdulmohsin, I., Beyer, L., & Zhai, X. (2024). **PaliGemma 2: A Family of Versatile VLMs for Transfer**. ArXiv. https://arxiv.org/abs/2412.03555
