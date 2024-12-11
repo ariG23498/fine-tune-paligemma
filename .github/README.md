@@ -25,7 +25,7 @@ Hugging Face🤗 model hub page : [PaliGemma 2 Release: Vision-Language Models a
   + For General fine-tuning: `vanilla_ft.py` 
 
 # Results
-We fine-tuned the model on two tasks: Image Captioning and Object detection. We also tuned the model on a specific task of "counting intersections" between lines inspired from [Lucas Beyer's blog plot on big_vision](https://lucasb.eyer.be/articles/bv_tuto.html). Check the corresponding code and dataset: [Count Intersection](count_intersection)
+We fine-tuned the model on two tasks: Image Captioning and Object detection. We also tuned the model on a specific task of "counting intersections" between lines inspired from [VLMs are blind](https://vlmsareblind.github.io/) paper. Check the corresponding code and dataset in the `count_intersection` folder.
 ## Image Captioning
 
 For image captioning task we chose the [`tuxemon`](https://huggingface.co/datasets/diffusers/tuxemon) dataset which contains tuxemons, a spin-off of pokemons and their captions as descriptions.
@@ -63,3 +63,6 @@ Fine-tuning script for object detection task:  `object_detection_ft.py`
 ## Citations 
 
 1. Steiner, A., Pinto, A. S., Tschannen, M., Keysers, D., Wang, X., Bitton, Y., Gritsenko, A., Minderer, M., Sherbondy, A., Long, S., Qin, S., Ingle, R., Bugliarello, E., Kazemzadeh, S., Mesnard, T., Alabdulmohsin, I., Beyer, L., & Zhai, X. (2024). **PaliGemma 2: A Family of Versatile VLMs for Transfer**. ArXiv. https://arxiv.org/abs/2412.03555
+2. Rahmanzadehgervi, P., Bolton, L., Taesiri, M. R., & Nguyen, A. T. (2024). **Vision language models are blind**. ArXiv. https://arxiv.org/abs/2407.06581
+3. Zhai, X., Mustafa, B., Kolesnikov, A., & Beyer, L. (2023). **Sigmoid Loss for Language Image Pre-Training**. ArXiv. https://arxiv.org/abs/2303.15343.
+4. Team, G., Mesnard, T., Hardin, C., Dadashi, R., Bhupatiraju, S., Pathak, S., Sifre, L., Rivière, M., Kale, M. S., Love, J., Tafti, P., Hussenot, L., Sessa, P. G., Chowdhery, A., Roberts, A., Barua, A., Botev, A., Slone, A., Héliou, A., . . .  Kenealy, K. (2024). **Gemma: Open Models Based on Gemini Research and Technology**. ArXiv. https://arxiv.org/abs/2403.08295
