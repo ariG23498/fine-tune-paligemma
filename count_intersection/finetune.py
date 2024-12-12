@@ -145,7 +145,7 @@ def main(ckpt_id: str = "google/paligemma2-3b-pt-224", dataset_folder: str = "da
             optimizer.zero_grad()
 
     if push_to_hub:
-        model.push_to_hub(model_id)
+        model.push_to_hub(model_id, tags=["fine-tune-paligemma", "count-intersection"])
 
 
 if __name__ == "__main__":
