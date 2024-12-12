@@ -44,9 +44,6 @@ python create_intersection_dataset.py \
 The uploaded dataset is available [here](https://huggingface.co/datasets/ariG23498/intersection-dataset).
 
 ### Model Fine-Tuning
-<a target="_blank" href="https://colab.research.google.com/github/ariG23498/fine-tune-paligemma/blob/main/count_intersection/finetune.ipynb">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
 
 Fine-tune the `PaliGemma 2 base` model using:
 
