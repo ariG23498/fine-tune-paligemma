@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+from torch.optim.lr_scheduler import LambdaLR
 from torch.utils.data import DataLoader
 from transformers import AutoProcessor, PaliGemmaForConditionalGeneration
 from datasets import load_dataset
@@ -124,6 +125,7 @@ if __name__ == "__main__":
     # fine tune the model
     print("[INFO] fine tuning the model...")
     optimizer = torch.optim.AdamW(model.parameters(), lr=vanilla_config.LEARNING_RATE)
+    scheduler = LambdaLR(optimizer, lr_lambda=lambda epoch: 0.95 ** epoch)
     for epoch in range(vanilla_config.EPOCHS):
         for idx, batch in enumerate(train_dataloader):
             outputs = model(**batch)
@@ -134,6 +136,8 @@ if __name__ == "__main__":
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-
+        scheduler.step()
+        for param_group in optimizer.param_groups:
+            print(f"Epoch {epoch+1} Learning Rate: {param_group['lr']}")
     # run model generation after fine tuning
     infer_on_model(model, test_batch)
