@@ -9,6 +9,12 @@ This project stems from an exploration of Lucas Beyer's [blog post on big_vision
 
 This repository also welcomes beginners in open-source contributions. There are ample opportunities to optimize, modularize, and enhance the codebase. Feel free to open PRs, raise issues, and review contributions.
 
+## Results
+
+| 0 Data Points | 20 Data Points | 100 Data Points | 200 Data Points |
+|:--:|:--:|:--:|:--:|
+|![image](https://github.com/user-attachments/assets/f62a9f5b-525c-4c07-8ecb-94a4b89d966a)|![image](https://github.com/user-attachments/assets/78f96d7b-ec1b-4a1e-92ba-dc42d7364dc0)|![image](https://github.com/user-attachments/assets/62e848b1-72e5-42a8-a080-1e8c2ec890e3)|![image](https://github.com/user-attachments/assets/18a17526-b405-4c0b-9007-689f0dba8cc5)|
+
 ## Features
 1. **Dataset Creation**: Generate synthetic images with labeled intersection counts (0, 1, or 2 intersections).
 2. **Dataset Hosting**: The dataset is uploaded to the Hugging Face Hub for accessibility.
