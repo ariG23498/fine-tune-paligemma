@@ -60,5 +60,5 @@ Can be trained on Google Colab with A100 40GB GPU runtime.
 
 ### Example Workflow
 1. Generate the dataset using `create_intersection_dataset.py`.
-2. Fine-tune the model using `finetune.py`.
+2. Fine-tune the model using `finetune.py`, or fine-tune with lora using `lora_finetune.py` 
 3. Run inference to visualize predictions and validate model performance.
