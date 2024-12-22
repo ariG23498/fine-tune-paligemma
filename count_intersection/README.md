@@ -52,6 +52,11 @@ python finetune.py \
   - `ckpt-id`: Pre-trained model checkpoint ID.
   - `dataset_folder`: Directory containing the dataset.
 
+Fine-tune the whole model(without freezing any layers) with LoRA:
+```bash
+python lora_finetune.py python lora_finetune.py --model_id "google/paligemma2-3b-pt-224" --output_dir "your/output/directory"
+```
+
 ### Example Workflow
 1. Generate the dataset using `create_intersection_dataset.py`.
 2. Fine-tune the model using `finetune.py`.
