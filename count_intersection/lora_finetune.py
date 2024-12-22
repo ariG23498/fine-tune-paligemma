@@ -1,4 +1,5 @@
 import torch
+import argparse
 from transformers import (
     AutoProcessor, 
     PaliGemmaForConditionalGeneration,
@@ -12,9 +13,17 @@ from torch.utils.data import DataLoader
 from PIL import Image
 
 
+# Add argument parser
+parser = argparse.ArgumentParser(description='Fine-tune PaLI-Gemma model')
+parser.add_argument('--model_id', type=str, default="google/paligemma-3b-pt-224",
+                   help='Model ID from Hugging Face Hub (default: google/paligemma-3b-pt-224)')
+parser.add_argument('--output_dir', type=str, default="paligemma_intersections",
+                   help='Directory to save the model outputs (default: paligemma_intersections)')
+args = parser.parse_args()
+
 # Configuration
 dataset_id = "ariG23498/intersection-dataset"
-model_id = "google/paligemma-3b-pt-224"
+model_id = args.model_id
 device = "cuda:0"
 dtype = torch.bfloat16
 batch_size = 8
@@ -72,7 +81,7 @@ training_args = TrainingArguments(
     save_strategy="steps",
     save_steps=1000,
     save_total_limit=1,
-    output_dir="paligemma_intersections",
+    output_dir=args.output_dir,
     bf16=True,
     report_to=["wandb"],
     dataloader_pin_memory=False
