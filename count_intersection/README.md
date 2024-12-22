@@ -54,7 +54,7 @@ python finetune.py \
 
 Fine-tune the whole model(without freezing any layers) with LoRA:
 ```bash
-python lora_finetune.py python lora_finetune.py --model_id "google/paligemma2-3b-pt-224" --output_dir "your/output/directory"
+python lora_finetune.py --model_id "google/paligemma2-3b-pt-224" --output_dir "your/output/directory"
 ```
 
 ### Example Workflow
