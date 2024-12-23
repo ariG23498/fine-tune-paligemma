@@ -1,5 +1,6 @@
 # Fine Tuning PaliGemma
 
+
 ## What is PaliGemma?
 
 PaliGemma 2 and PaliGemma are lightweight open vision-language models (VLM) inspired by PaLI-3, and based on open components like the [SigLIP](https://arxiv.org/abs/2303.15343) vision model and the [Gemma language model](https://arxiv.org/abs/2403.08295). PaliGemma takes both images and text as inputs and can answer questions about images with detail and context, meaning that PaliGemma can perform deeper analysis of images and provide useful insights, such as captioning for images and short videos, object detection, and reading text embedded within images.
@@ -32,6 +33,25 @@ Hugging Face🤗 model hub page : [PaliGemma 2 Release: Vision-Language Models a
 We fine-tuned the model on two tasks: Image Captioning and Object detection. 
 
 We also tuned the model on a specific task of "counting intersections" between lines inspired from [VLMs are blind](https://vlmsareblind.github.io/) paper. Check the corresponding code and dataset in the `count_intersection` folder.
+
+PaliGemma (PG) is a family of Vision Language Models from Google. It uses
+SigLIP as the vision encoder, and the Gemma family of models as it language counterpart.
+
+> [!Note]
+I and Ritwik Raha have covered SigLIP in depth in our blog
+[Choosing Between SigLIP and CLIP for Language Image Pretraining](https://blog.ritwikraha.dev/choosing-between-siglip-and-clip-for-language-image-pretraining) if you wanted to read
+about it.
+
+PaliGemma is great for fine tuning purposes. In this repository we collect some
+examples of fine tuning the PG family of models.
+
+Models hosted on Hugging Face Hub:
+
+1. [PaliGemma](https://huggingface.co/collections/google/paligemma-release-6643a9ffbf57de2ae0448dda)
+2. [PaliGemma 2](https://huggingface.co/collections/google/paligemma-2-release-67500e1e1dbfdd4dee27ba48)
+
+
+
 ## Image Captioning
 
 For image captioning task we chose the [`tuxemon`](https://huggingface.co/datasets/diffusers/tuxemon) dataset which contains tuxemons, a spin-off of pokemons and their captions as descriptions.
@@ -45,11 +65,14 @@ For image captioning task we chose the [`tuxemon`](https://huggingface.co/datase
 
 
 ## Object Detection
+
 For object detection, the dataset has to be preprocessed in a way to be compatible with the model. The [Big vision space](https://huggingface.co/spaces/big-vision/paligemma) gives us some valuable insights on how to do so. So we made a script 
 to format any object detection dataset to the format compatible with PaliGemma. 
 
 ### A note on the data format: 
 The format is to put the prefix and suffix in a specific way. In the prefix, use the keyword `detect` followed by a semicolon-separated list of the object classes you want to detect. For example, `detect {object} ; {object}`. The suffix should contain the detection results, with each object represented by its bounding box and class name. The bounding box is formatted as `<loc{Y1}><loc{X1}><loc{Y2}><loc{X2}>`, where X1, Y1, X2, and Y2 are the normalized coordinates of the top-left and bottom-right corners of the box, respectively.
+
+
 
 You can find the function to format any object detection dataset to Paligemma format here: `create_od_dataset.py`
 
@@ -60,6 +83,7 @@ Fine-tuning script for object detection task:  `object_detection_ft.py`
 | Before Fine Tuning | After Fine Tuning |
 |---|---|
 | ![image](./assets/object_detection/before.png) | ![image](./assets/object_detection/after.png) |
+
 
 ## Further Resources
 - [Understanding PaliGemma](https://blog.ritwikraha.dev/understanding-paligemma-in-50-minutes-or-less)
@@ -72,3 +96,22 @@ Fine-tuning script for object detection task:  `object_detection_ft.py`
 2. Rahmanzadehgervi, P., Bolton, L., Taesiri, M. R., & Nguyen, A. T. (2024). **Vision language models are blind**. ArXiv. https://arxiv.org/abs/2407.06581
 3. Zhai, X., Mustafa, B., Kolesnikov, A., & Beyer, L. (2023). **Sigmoid Loss for Language Image Pre-Training**. ArXiv. https://arxiv.org/abs/2303.15343.
 4. Team, G., Mesnard, T., Hardin, C., Dadashi, R., Bhupatiraju, S., Pathak, S., Sifre, L., Rivière, M., Kale, M. S., Love, J., Tafti, P., Hussenot, L., Sessa, P. G., Chowdhery, A., Roberts, A., Barua, A., Botev, A., Slone, A., Héliou, A., . . .  Kenealy, K. (2024). **Gemma: Open Models Based on Gemini Research and Technology**. ArXiv. https://arxiv.org/abs/2403.08295
+
+
+## Count Intersection
+
+Find more information in the [count intersection readme](../count_intersection/README.md).
+
+## Citation
+
+If you like our work and would use it please cite us
+```
+@misc{github_repository,
+  author = {Aritra Roy Gosthipaty, Ritwik Raha}, 
+  title = {ft-pali-gemma}, 
+  publisher = {{GitHub}(https://github.com)},
+  howpublished = {\url{https://github.com/ariG23498/ft-pali-gemma/edit/main/README.md}},
+  year = {2024}  
+}
+```
+
