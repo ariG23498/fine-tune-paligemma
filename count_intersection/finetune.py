@@ -1,6 +1,9 @@
 # Example usage:
 # python finetune.py \
-# --ckpt-id="google/paligemma2-3b-pt-224"
+# --ckpt_id="google/paligemma2-3b-pt-224" \
+# --dataset_folder="dataset" \
+# --push_to_hub=True \
+# --model_id="YOUR_HF_USERNAME/count_intersection-ft-paligemma2-3b-pt-224"
 
 import os
 
@@ -69,7 +72,10 @@ def run_inference(val_dataset, processor, model):
     plt.show()
 
 
-def main(ckpt_id: str = "google/paligemma2-3b-pt-224", dataset_folder: str = "dataset"):
+def main(ckpt_id: str = "google/paligemma2-3b-pt-224", dataset_folder: str = "dataset", push_to_hub: bool = False, model_id: str | None = None):
+    if push_to_hub and model_id is None:
+        raise ValueError("`model_id` cannot be `None` when you want to push model to Hub")
+
     # load the dataset and the processor
     print(f"[INFO] Loading {ckpt_id} processor")
     processor = PaliGemmaProcessor.from_pretrained(ckpt_id)
@@ -137,6 +143,9 @@ def main(ckpt_id: str = "google/paligemma2-3b-pt-224", dataset_folder: str = "da
         optimizer.step()
         if idx % 8 == 0:
             optimizer.zero_grad()
+
+    if push_to_hub:
+        model.push_to_hub(model_id, tags=["fine-tune-paligemma", "count-intersection"])
 
 
 if __name__ == "__main__":
