@@ -84,7 +84,8 @@ training_args = TrainingArguments(
     output_dir=args.output_dir,
     bf16=True,
     report_to=["wandb"],
-    dataloader_pin_memory=False
+    dataloader_pin_memory=False,
+    push_to_hub=True
 )
 
 # Initialize trainer
@@ -97,3 +98,6 @@ trainer = Trainer(
 
 # Start training
 trainer.train()
+
+#push the model to the huggingface hub
+trainer.push_to_hub()
