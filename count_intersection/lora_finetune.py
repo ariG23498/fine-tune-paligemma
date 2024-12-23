@@ -85,7 +85,6 @@ training_args = TrainingArguments(
     bf16=True,
     report_to=["wandb"],
     dataloader_pin_memory=False,
-    push_to_hub=True
 )
 
 # Initialize trainer
