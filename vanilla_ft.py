@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from torch.optim.lr_scheduler import LambdaLR
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import DataLoader
 from transformers import AutoProcessor, PaliGemmaForConditionalGeneration
 from datasets import load_dataset
@@ -124,8 +124,9 @@ if __name__ == "__main__":
 
     # fine tune the model
     print("[INFO] fine tuning the model...")
-    optimizer = torch.optim.AdamW(model.parameters(), lr=vanilla_config.LEARNING_RATE)
-    scheduler = LambdaLR(optimizer, lr_lambda=lambda epoch: 0.95 ** epoch)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=vanilla_config.LEARNING_RATE,weight_decay = 1e-3)
+    scheduler = ReduceLROnPlateau(optimizer,mode='min', factor=0.5, patience=2,verbose=True )
+    model.train()
     for epoch in range(vanilla_config.EPOCHS):
         for idx, batch in enumerate(train_dataloader):
             outputs = model(**batch)
@@ -136,8 +137,23 @@ if __name__ == "__main__":
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-        scheduler.step()
+            
+        model.eval()
+        total_val_loss = 0
+        with torch.no_grad():
+            for val_batch in val_dataloader:
+                val_outputs = model(**val_batch)
+                val_loss = val_outputs.loss
+                total_val_loss += val_loss.item()
+    
+        # Calculate average losses
+        avg_train_loss = total_train_loss / len(train_dataloader)
+        avg_val_loss = total_val_loss / len(val_dataloader)
+        scheduler.step(avg_val_loss)
+    
         for param_group in optimizer.param_groups:
-            print(f"Epoch {epoch+1} Learning Rate: {param_group['lr']}")
+          print(f"Epoch {epoch+1} | Avg Train Loss: {avg_train_loss:.4f} | Avg Val Loss: {avg_val_loss:.4f} Learning Rate: {param_group['lr']:.6f}\n")
+
+        model.train()
     # run model generation after fine tuning
     infer_on_model(model, test_batch)
