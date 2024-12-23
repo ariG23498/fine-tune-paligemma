@@ -1,6 +1,8 @@
-accelerate
-transformers
-datasets
-matplotlib
-ruff
-fire
+datasets>=3.2.0
+fire>=0.7.0
+matplotlib>=3.10.0
+numpy>=2.2.0
+torch>=2.4.1
+tqdm>=4.67.1
+transformers>=4.47.0
+accelerate>=1.2.1
