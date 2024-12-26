@@ -66,7 +66,7 @@ python finetune.py \
   - `push_to_hub`: Whether to upload the fine-tuned model to the Hugging Face Hub.
   - `model_id`: ID used to upload model to the Hub, e.g. `oliveirabruno01/count_intersection-ft-paligemma2-3b-pt-224`. Required if `push_to_hub` is `True`.
 
-Fine-tune the whole model(without freezing any layers) with LoRA:
+Fine-tune the whole model (without freezing any layers) with LoRA:
 ```bash
 python lora_finetune.py --model_id "google/paligemma2-3b-pt-224" --output_dir "your/output/directory"
 ```
