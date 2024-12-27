@@ -66,8 +66,20 @@ python finetune.py \
   - `push_to_hub`: Whether to upload the fine-tuned model to the Hugging Face Hub.
   - `model_id`: ID used to upload model to the Hub, e.g. `oliveirabruno01/count_intersection-ft-paligemma2-3b-pt-224`. Required if `push_to_hub` is `True`.
 
+Fine-tune the whole model (without freezing any layers) with LoRA:
+```bash
+python lora_finetune.py --model_id "google/paligemma2-3b-pt-224" --output_dir "your/output/directory"
+```
+Can be trained on Google Colab with A100 40GB GPU runtime.
+
 ### Example Workflow
+
+1. Generate the dataset using `create_intersection_dataset.py`.
+2. Fine-tune the model using `finetune.py`, or fine-tune with lora using `lora_finetune.py` 
+3. Run inference to visualize predictions and validate model performance.
+
 1. You may need to authenticate with `huggingface-cli login` if you haven't already. 
 2. Generate the dataset using `create_intersection_dataset.py`.
 3. Fine-tune the model using `finetune.py`.
 4. Run inference to visualize predictions and validate model performance.
+
