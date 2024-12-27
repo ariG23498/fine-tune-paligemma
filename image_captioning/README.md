@@ -2,7 +2,7 @@
 
 This project demonstrates fine-tuning the PaliGemma vision-language model for image captioning. 
 
----
+
 
 ## Project Structure
 
@@ -10,7 +10,7 @@ This project demonstrates fine-tuning the PaliGemma vision-language model for im
 - **`vanilla_paligemma_ft.ipynb`**: Interactive notebook for experimenting with fine-tuning and inference.
 - **`configs/vanilla_config.py`**: Configuration file for model parameters like dataset ID, batch size, learning rate, and number of epochs.
 
----
+
 
 ## Features
 
@@ -19,7 +19,7 @@ This project demonstrates fine-tuning the PaliGemma vision-language model for im
 - **Inference**: Generates captions for test images and visualizes the results using Matplotlib.
 - **Configurable Parameters**: Modify settings like batch size and learning rate through the configuration file.
 
----
+
 
 ## Dataset
 
@@ -29,7 +29,7 @@ The dataset is directly loaded from the Hugging Face Hub:
 
 The dataset is split into training and testing subsets automatically during execution.
 
----
+
 
 ## How to Use
 
@@ -49,7 +49,7 @@ The dataset is split into training and testing subsets automatically during exec
 
 3. After training, the script will visualize test images with generated captions before and after fine-tuning.
 
----
+
 
 
 
